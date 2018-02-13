@@ -1,0 +1,29 @@
+{
+    "lastName" : "karim",
+    "name" : "name",
+    "email" : "email@gmail.com",
+    "job" : "developer",
+    "password" : "12ss3",
+    "todoList" : [ 
+        {
+            "description" : "lorem Ipsum 1",
+            "addDate" : "20-01-2018",
+            "done" : 1
+        }, 
+        {
+            "description" : "lorem Ipsum sdsakdjlkdjak",
+            "addDate" : "23-01-2018",
+            "done" : 1
+        }, 
+        {
+            "description" : "lorem Ipsumdsdsds 1",
+            "addDate" : "28-01-2018",
+            "done" : 1
+        }, 
+        {
+            "description" : "loredsdm Ipsumdsdsds 1",
+            "addDate" : "30-01-2018",
+            "done" : 1
+        }
+    ]
+}

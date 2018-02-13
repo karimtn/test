@@ -24,28 +24,72 @@ const One = (closure, query) => {
     });
 };
 
+app.get('/',(req,res) => {
+    res.send('Hello ilef !')
+});
+
 app.get('/todos',(req,res)=>{
     connection(db=>{
         db.collection('users').find().toArray((err, result) => {
             res.send(result);
         })
     })
-})
+});
  
 app.get('/:id/todos',(req,res)=>{
     let query = {_id:ObjectID(req.params.id)};
     connection(db=>{
         db.collection('users').findOne(query,(err,result)=>{
             if(err) res.send(err);
-            res.send(result.todos);
+            res.send(result);
         })
     })
-})
+});
+// working yaaaaaaay
 
+app.post('/:id/todos',(req,res)=>{
+    let query = {_id:ObjectID(req.params.id)};
+    connection(db=>{
+        db.collection('users').update(query, 
+            {
+                $push: {
+                    todoList: req.body
+                }
+            },
+            (err, result) => {
+            if(err) throw err;
+            res.send(result);
+        });
+    })
+});
+
+app.put('/:id/todos/:tid',(req, res) => {
+    let tid = { [ 'todoList.' + req.params.tid ] : req.body };
+    let query = {_id:ObjectID(req.params.id)};
+    console.log(tid);
+    connection(db => {
+        db.collection('user').update(query, 
+            {
+                $set: tid
+            },
+            (err, result) => {
+                if(err) throw err;
+                res.send(result);
+            }
+    ); 
+});
+});
+
+
+// delete
+
+// app.delete('/:id/todos/:tid',(req, res) => {
+
+/*
 app.put('/:id/todos/:todoId',(req, res) => {
     let query = {_id:ObjectID(req.params.id)};
     connection(db => {
-
+        resut = One(query);
         var todo = result[req.params.todoId];
         db.collection('user').update(query, 
             {
@@ -58,7 +102,6 @@ app.put('/:id/todos/:todoId',(req, res) => {
 
         })
 
-        /*
         db.collection('user').findOne(query, (err, result) => {
             if(err) res.send(err);
 
@@ -67,9 +110,9 @@ app.put('/:id/todos/:todoId',(req, res) => {
                 res.send(resultat);
             })
             
-        })*/
+        })
     })
-})
+})*/
 
 app.post('/',(req,res)=>{
     connection(db=>{
